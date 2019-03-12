@@ -1,18 +1,38 @@
 package com.cognizant.courses;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.cognizant.courses.model.CourseEntity;
+import com.cognizant.courses.model.CoursesRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class CourseController {
 
+    @Autowired
+    CoursesRepository repository;
+
+    @GetMapping("/courses")
+    public Iterable<CourseEntity> getAll(){
+        return repository.findAll();
+    }
+
+
     @PostMapping("/courses")
     public String addCourse(@RequestBody CourseRequest request){
-            if(request.getCourseId().isEmpty() || request.getName().isEmpty())
+            if( null == request.getCourseId() || request.getCourseId().isEmpty() ||
+                    null == request.getName() || request.getName().isEmpty())
                  return MessageConstant.ERROR;
 
-            return null;
+            repository.save(new CourseEntity(request.getCourseId(),request.getName(),request.getDescription()));
+            return MessageConstant.SUCCESS;
     }
+
+   @PutMapping("/courses/{id}")
+    public void update(@RequestBody CourseRequest request){
+
+
+   }
 
 }
