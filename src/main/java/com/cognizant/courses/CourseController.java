@@ -18,6 +18,12 @@ public class CourseController {
         return repository.findAll();
     }
 
+    @GetMapping("/courses/{id}")
+    public CourseEntity getAll(@PathVariable String id){
+        return repository.findById(id).get();
+    }
+
+
 
     @PostMapping("/courses")
     public String addCourse(@RequestBody CourseRequest request){
@@ -30,9 +36,35 @@ public class CourseController {
     }
 
    @PutMapping("/courses/{id}")
-    public void update(@RequestBody CourseRequest request){
+    public String update(@RequestBody CourseRequest request){
 
+       if( null == request.getCourseId() || request.getCourseId().isEmpty() ||
+               null == request.getName() || request.getName().isEmpty())
+           return MessageConstant.ERROR;
+
+
+       CourseEntity course = repository.findById(request.getCourseId() ).orElse(null);
+
+       if(null == course)
+            return MessageConstant.ERROR;
+
+       course.setName(request.getName());
+       course.setDescription(request.getDescription());
+       repository.save(course);
+
+
+       return MessageConstant.SUCCESS;
 
    }
+
+    @DeleteMapping("/courses/{id}")
+    public String update(@PathVariable String id){
+
+        repository.deleteById(id);
+
+        return MessageConstant.SUCCESS;
+
+    }
+
 
 }
