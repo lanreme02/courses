@@ -16,7 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -140,8 +139,6 @@ public class ControllerTest {
                 .getResponse()
                 .getContentAsString();
 
-
-
         CourseEntity retrievedCourse = repository.findById(originalCourse.getCourseId()).orElse(null);
 
         assertThat(updatedCourse, is(retrievedCourse));
@@ -154,14 +151,10 @@ public class ControllerTest {
         CourseEntity  originalCourse = new CourseEntity("20","data struc","Algorithm analysis");
         repository.save(originalCourse);
 
-
-
         String content = mvc.perform(delete("/courses/" + originalCourse.getCourseId()))
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
-
-
         CourseEntity retrievedCourse = repository.findById(originalCourse.getCourseId()).orElse(null);
 
         assertThat(null, is(retrievedCourse));

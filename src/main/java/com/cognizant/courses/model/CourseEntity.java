@@ -3,6 +3,7 @@ package com.cognizant.courses.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Objects;
@@ -12,13 +13,15 @@ public class CourseEntity {
 
     @Id
     private String courseId;
+
+    @Column(unique=true)
     private String name;
     private String description;
 
     public CourseEntity(){}
 
     @JsonCreator
-    public CourseEntity(@JsonProperty("courseId") String courseId,
+    public CourseEntity(@JsonProperty("id") String courseId,
                         @JsonProperty("name") String name, @JsonProperty("description") String description){
 
         this.courseId = courseId;

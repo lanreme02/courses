@@ -1,4 +1,4 @@
-package com.cognizant.courses;
+package com.cognizant.courses.controller;
 
 public class MessageConstant {
 

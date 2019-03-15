@@ -1,4 +1,4 @@
-package com.cognizant.courses;
+package com.cognizant.courses.controller;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
